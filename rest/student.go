@@ -120,4 +120,16 @@ func Enroll(rw http.ResponseWriter, r *http.Request) {
 	if hasError(rw, err, "Internal issue") {
 		return
 	}
+
+	var student entity.Student
+	err = json.Unmarshal(bodyBytes, &student)
+	if hasError(rw, err, "Internal issue") {
+		return
+	}
+
+	result := db.GetDB().Model(&student).Association("classes").Append(student.Classes)
+	if result.Error != nil {
+		fmt.Println(result.Error)
+		return
+	}
 }

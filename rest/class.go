@@ -66,15 +66,18 @@ func PutClass(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var class = entity.Class{}
-	err = json.Unmarshal(bodyBytes, &class)
+	var inputClass = entity.Class{}
+	err = json.Unmarshal(bodyBytes, &inputClass)
 	if hasError(rw, err, "Internal issue") {
 		return
 	}
 
-	db.GetDB().Update(&class)
+	result := db.GetDB().Model(&entity.Class{}).Updates(inputClass)
+	if result.Error != nil {
+		fmt.Println(result.Error)
+	}
 
-	fmt.Println(class)
+	//fmt.Println(student)
 	rw.Write(bodyBytes)
 }
 
