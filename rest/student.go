@@ -127,7 +127,9 @@ func Enroll(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := db.GetDB().Model(&student).Association("classes").Append(student.Classes)
+	result := db.GetDB().Model(&student).Association("classes").Append(student.Classes) //replace deletes previos entries in classes field for student
+	//it also exists delete associations
+	//also clear associations
 	if result.Error != nil {
 		fmt.Println(result.Error)
 		return
