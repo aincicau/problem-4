@@ -1,0 +1,27 @@
+student:
+id
+lastn
+firstn
+age
+list of class
+
+class:
+id
+title
+desc
+list of student
+
+endpoints:
+student - create, get, update, delete
+students - list of students
+class - same as student
+classes - list of classes
+enroll - std id and cls id and they are linked
+enroll post data:
+{
+    studid:
+    classes:{
+        {id1},
+        {id2}
+    }
+}
